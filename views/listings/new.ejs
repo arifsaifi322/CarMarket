@@ -1,0 +1,52 @@
+<%layout("listings/layout/boilerplate")%>
+<div class="row mt-5 mb-5">
+<div class="col-9 offset-1">
+    
+<h2 class="mb-4" style="color: #333; font-weight: 700; text-align: center;">Add new Spare Parts</h2>
+<form 
+    method="post"
+    action="/home" 
+    novalidate class="needs-validation form-container" 
+    enctype="multipart/form-data"
+>
+
+   <div class="form-content">
+        
+        <div class="mb-3">
+            <label for="title" class="form-label">Title</label>
+            <input name="title" type="text" class="form-control" placeholder="Enter Title" required>
+            <div class="invalid-feedback">Please Enter a Valid Title</div>
+        </div>
+        <div class="mb-3">
+            <label for="description" class="form-label">Description</label>
+            <textarea name="description" class="form-control" placeholder="Enter Description" required></textarea>
+            <div class="invalid-feedback">Please Enter a Valid Description</div>
+
+        </div>
+        <div class="mb-3">
+            <label for="image" class="form-label">Upload listing image</label>
+            <input name="listing[image]" type="file" class="form-control">
+            <!-- <div class="invalid-feedback">Please Enter the Valid URL</div> -->
+        </div>
+        <div class="row g-4">
+        <div class="mb-3 col-md-6">
+            <label for="price" class="form-label">Price</label>
+            <input name="price" type="number" class="form-control" placeholder="Enter Price" step="0.01" min="0" required>
+            <div class="invalid-feedback">Please Enter The Valid Price</div>
+        </div>
+        <div class="mb-3 col-md-6">
+            <label for="quantity" class="form-label">Quantity</label>
+            <input name="quantity" type="number" class="form-control" placeholder="quantity eg. 1,2,3,4 or something like that" required>
+            <div class="invalid-feedback">Please Enter a Quantity</div>
+        </div>
+        </div>
+        
+        <div class="d-flex gap-3 mt-4">
+            <button type="submit" class="btn btn-primary add-btn btn-lg">Submit</button>
+            <a href="/home" class="btn btn-secondary btn-lg">Cancel</a>
+        </div>
+    </form>
+    </div>
+
+</div>
+</div>

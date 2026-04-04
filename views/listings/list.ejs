@@ -1,0 +1,12 @@
+<%layout("listings/layout/boilerplate")%>
+    <h1> All Places to Be : </h1>
+    <ol>
+            <% for(list of AllLists){%>
+
+                <li>
+                    <a href="/home/<%=list._id%>">
+                        <%= list.title%>
+                    </a>
+                </li>
+            <%}%>
+    </ol>

@@ -1,0 +1,50 @@
+<%layout("listings/layout/boilerplate")%>
+
+<div class="row mt-4">
+    <div class="col-md-10 offset-md-1">
+        <h2 class="mb-4">My Bookings</h2>
+
+        <% if(bookings.length === 0) { %>
+            <div class="alert alert-info" role="alert">
+                <h5>No bookings yet!</h5>
+                <p>Start exploring and book your favourite place.</p>
+                <a href="/home" class="btn btn-primary mt-2">Explore Places</a>
+            </div>
+        <% } else { %>
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Place Name</th>
+                            <th>Address</th>
+                            <th>Quantity</th>
+                            <th>Total Price</th>
+                            <th>Booked On</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% bookings.forEach(booking => { %>
+                            <tr>
+                                <td><strong><%= booking.listing.title %></strong></td>
+                                <td><%= booking.address %></td>
+                                <td><%= booking.quantity %></td>
+                                <td>₹<%= booking.totalPrice.toLocaleString("en-IN") %></td>
+                                <td><%= new Date(booking.createdAt).toLocaleDateString() %></td>
+                                <td>
+                                    <form method="POST" action="/booking/<%= booking._id %>/cancel?_method=delete" style="display:inline;">
+                                        <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')">Cancel</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        <% }); %>
+                    </tbody>
+                </table>
+            </div>
+        <% } %>
+
+        <div class="mt-4">
+            <a href="/home" class="btn btn-secondary">Back to Explore</a>
+        </div>
+    </div>
+</div>

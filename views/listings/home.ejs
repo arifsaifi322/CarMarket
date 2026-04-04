@@ -1,0 +1,138 @@
+<%layout("listings/layout/boilerplate")%>
+
+<style>
+    #filters {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+    }
+    .filter {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        margin-right: 1.5rem;
+        margin-top: 1.5rem;
+        opacity: 0.6;
+    }
+    .filter:hover{
+        opacity: 1;
+        cursor: pointer;
+    }
+    .listing-card {
+        transition: all 0.3s ease;
+    }
+    .tax-details {
+        max-height: 0;
+        overflow: hidden;
+        opacity: 0;
+        transition: max-height 0.3s ease, opacity 0.3s ease;
+        font-size: 0.85rem;
+        color: #6c757d;
+        margin-top: 0.5rem;
+    }
+    .tax-details.show {
+        max-height: 200px;
+        opacity: 1;
+    }
+    .tax-details .tax-row {
+        display: flex;
+        justify-content: space-between;
+        padding: 0.25rem 0;
+    }
+    .tax-details .total-price {
+        font-weight: bold;
+        border-top: 1px solid #dee2e6;
+        padding-top: 0.5rem;
+        color: #198754;
+    }
+    .tax-toggle { 
+        border: 2px solid #0d6efd;
+        border-radius: 0.5rem;
+        padding: 0.75rem 1.25rem;
+        margin-left: auto;
+        display: flex;
+        align-items: center;
+        background-color: #f8f9fa;
+    }
+    .tax-toggle .form-check-label {
+        margin-bottom: 0;
+        font-weight: 500;
+        cursor: pointer;
+    }
+</style>
+
+<div id="filters">
+    <div class="filter">
+        <div>
+            <i class="fa-solid fa-fire"></i>
+        </div>
+        <p>New Spare Parts</p>
+    </div>
+    <div class="filter">
+        <div>
+            <i class="fa-solid fa-fire"></i>
+        </div>
+        <p>Old Spare Parts</p>
+    </div><div class="filter">
+        <div>
+            <i class="fa-solid fa-fire"></i>
+        </div>
+        <p>Dummy Spare Parts </p>
+    </div>
+    <div class="tax-toggle">
+        <div class="form-check-reverse form-switch">
+            <input class="form-check-input" type="checkbox" role="switch" id="switchCheckDefault">
+            <label class="form-check-label" for="switchCheckDefault">Display total after taxes</label>
+        </div>
+    </div>
+    
+</div>
+
+        <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 mt-3">
+            <% for (let data of AllLists) { %>
+                <a href="/home/<%=data._id%>" class="card-link">
+                <div class="card col listing-card" style="width: 20rem;">
+                    <img src="<%= data.image.url %>" class="card-img-top" alt="<%= data.title %>" style="height: 20rem;">
+                    <div class="card-img-overlay"></div>
+                    <div class="card-body">
+                        <b><h4 class="card-title"><%= data.title %></h4></b>
+                        <p class="card-text"><%= data.description %></p>
+                        <p class="card-text"><strong>₹<span class="base-price"><%= data.price.toLocaleString("en-IN") %></span> / Qty: <span class="quantity"><%= data.quantity || 1 %></span></strong></p>
+                        <div class="tax-details">                                                                                                           
+                            <div class="tax-row">
+                                <span>Base Price:</span>
+                                <span>₹<span class="base-price-detail"><%= data.price.toLocaleString("en-IN") %></span></span>
+                            </div>
+                            <div class="tax-row">
+                                <span>GST (18%):</span>
+                                <span>₹<span class="tax-amount"><%= (data.price * 0.18).toLocaleString("en-IN", {minimumFractionDigits: 2, maximumFractionDigits: 2}) %></span></span>
+                            </div>
+                            <div class="tax-row total-price">
+                                <span>Total (with tax):</span>
+                                <span>₹<span class="total-with-tax"><%= ((data.price * 1.18)).toLocaleString("en-IN", {minimumFractionDigits: 2, maximumFractionDigits: 2}) %></span></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </a>
+            <% } %>
+        </div>
+
+        <script>
+            let taxSwitch = document.getElementById("switchCheckDefault");
+            
+            function toggleTaxInfo() {
+                let taxDetails = document.querySelectorAll(".tax-details");
+                taxDetails.forEach(detail => {
+                    if(taxSwitch.checked){
+                        detail.classList.add("show");
+                    } else {
+                        detail.classList.remove("show");
+                    }
+                });
+            }
+            
+            taxSwitch.addEventListener("change", toggleTaxInfo);
+        </script>

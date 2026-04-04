@@ -1,0 +1,114 @@
+
+<%layout("listings/layout/boilerplate")%>
+<div class="row mt-4">
+<div class="col-8 offset-2">
+    
+<h2>Edit You Listing</h2>
+<br>
+<br>
+<!-- <form method="post" action="/home"> -->
+<form method="post" action="/home/edit/<%=data._id%>?_method=patch" novalidate class="row g-3 needs-validation" enctype="multipart/form-data">
+   <div class="container">
+        <div class="card col-6 listing-card">
+            <img src="<%= original_Image_url %>"
+            class="card-img-top show-img" 
+            alt="<%= data.title %>"
+            /></div>
+        <div class="mb-3">
+            <label for="image" class="form-label">Update Image</label>
+            <input name="image" type="file" class="form-control">
+        </div>
+        <div class="mb-3">
+            <label for="title" class="form-label">Title</label>
+            <input name="title" type="text" class="form-control" value="<%= data.title %>" required>
+                        <div class="invalid-feedback">Please Enter a Valid Title</div>
+
+        </div>
+        <div class="mb-3">
+            <label for="description" class="form-label">Description</label>
+            <textarea name="description" class="form-control" required><%= data.description %></textarea>
+                        <div class="invalid-feedback">Please Enter a Valid Description</div>
+
+        </div>
+        
+        <div class="row">
+        <div class="mb-3 col-4">
+            <label for="price" class="form-label">Price</label>
+            <input name="price" type="number" class="form-control" value="<%= data.price %>" required>
+                        <div class="invalid-feedback">Please Enter a Valid Price</div>
+
+        </div>
+        <div class="mb-3 col-4">
+            <label for="quantity" class="form-label">Quantity</label>
+            <input name="quantity" type="number" class="form-control" value="<%= data.quantity || 1 %>" placeholder="quantity eg. 1,2,3,4 or something like that" required>
+            <div class="invalid-feedback">Please Enter a Quantity</div>
+        </div>
+        </div>
+
+        
+        <button type="submit" class="btn btn-primary add-btn mt-3 w-25">Update</button>
+        </form>
+        <br>
+        <br>
+        <br>
+    </div>
+
+</div>
+</div>
+
+
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>
+        Edit Page for ID : <%= data._id %>
+    </h1>
+                                
+    <form method="post" action="/home/edit/<%=data._id%>?_method=patch">
+       <table>
+        <tr>
+            <td>Title : </td>
+            <td><input type="text" name="title" value="<%= data.title %>"></td>
+        </tr>
+        <tr>
+            <td>Description : </td>
+            <td>
+                <textarea name="description"><%= data.description %></textarea>
+            </td>
+        </tr>
+        <tr>
+            <td>Image : </td>
+            <td>
+                <input type="text" name="imageName" value="<%= data.image.filename %>">
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><textarea name="imageUrl"><%= data.image.url %></textarea></td>
+        </tr>
+        <tr>
+            <td>Price : </td>
+            <td><input type="text" name="price" value="<%= data.price %>"></td>
+        </tr>
+        <tr>
+            <td>Location : </td>
+            <td><input type="text" name="location" value="<%= data.location %>"></td>
+        </tr>
+        <tr>
+            <td>Country : </td>
+            <td><input type="text" name="country" value="<%= data.country %>"></td>
+        </tr>
+        <tr>
+            <td> </td>
+            <td><button type="submit">Update</button></td>
+        </tr>
+        </table>
+    </form>
+</body>
+</html> -->
